@@ -80,9 +80,8 @@ namespace Trak1.Integration.Example
 
 
             HttpClient client = new HttpClient();
-            //Call GetAvailablePackages with GetAsync and use ReadAsAsync to Deserialize the results into our List of Packages.
+            //Call RunPackage with PostAsJsonAsync and use ReadAsAsync to Deserialize the results into our Response Object
             var response = client.PostAsJsonAsync<Trak1Request>($"{url}/Integration/RunPackage", request).Result.Content.ReadAsAsync<Trak1Response>().Result;
-            //We can not iterate over the package and gather information about what is available to us.
             Console.WriteLine($"{response.TransactionId}");
         }
 
@@ -90,19 +89,17 @@ namespace Trak1.Integration.Example
         {
             string transactionId = "test3";
             HttpClient client = new HttpClient();
-            //Call GetAvailablePackages with GetAsync and use ReadAsAsync to Deserialize the results into our List of Packages.
+            //Call GetReportStatus with GetAsync and use ReadAsAsync to Deserialize the results into our report status object.
             var reportStatus = client.GetAsync($"{url}/Integration/GetReportStatus/{subscriberCode}/{companyCode}/{transactionId}").Result.Content.ReadAsAsync<ReportStatusResponse>().Result;
-            //We can not iterate over the package and gather information about what is available to us.
-            Console.WriteLine($"{reportStatus.ReportStatus}:{reportStatus.Recomendation}");
+            Console.WriteLine($"{reportStatus.ReportStatus}:{reportStatus.Recommendation}");
         }
 
         static void GetReportUrl(string companyCode, string subscriberCode, string url)
         {
             string transactionId = "test3";
             HttpClient client = new HttpClient();
-            //Call GetAvailablePackages with GetAsync and use ReadAsAsync to Deserialize the results into our List of Packages.
+            //Call GetReportUrl with GetAsync and use ReadAsAsync to Deserialize the results into our report url object.
             var reportUrl = client.GetAsync($"{url}/Integration/GetReportUrl/{subscriberCode}/{companyCode}/{transactionId}").Result.Content.ReadAsAsync<ReportUrlResponse>().Result;
-            //We can not iterate over the package and gather information about what is available to us.
             Console.WriteLine($"{reportUrl.ReportUrl}");
         }
     }

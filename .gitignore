@@ -1,0 +1,3 @@
+*.user
+/Trak1.Integration.Example/bin/Debug
+/Trak1.Integration.Example/obj/Debug
